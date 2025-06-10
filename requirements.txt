@@ -2,3 +2,5 @@ requests
 beautifulsoup4
 networkx
 python-dotenv
+streamlit
+matplotlib
