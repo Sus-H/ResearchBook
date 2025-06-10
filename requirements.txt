@@ -1,6 +1,0 @@
-serpapi
-requests
-networkx
-python-dotenv
-streamlit
-matplotlib

@@ -1,10 +1,15 @@
-FROM python:3.10-slim
+FROM python:3.13-alpine
+
+RUN pip install uv
+
+RUN uv --version
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY pyproject.toml uv.lock* ./
+
+RUN uv sync --no-dev
 
 COPY . .
 
-CMD ["python", "main.py"]
+CMD ["uv", "run", "main.py"]

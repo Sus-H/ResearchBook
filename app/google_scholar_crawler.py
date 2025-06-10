@@ -1,9 +1,11 @@
+# app/google_scholar_crawler.py
+
 import os
 from serpapi import GoogleSearch
 
 def fetch_scholar_author(author_name: str, num_papers: int = 20):
     """
-    Fetch basic author profile and publications from Google Scholar via SerpAPI.
+    Hämtar grunddata om en författare från Google Scholar via SerpAPI.
     """
     params = {
         "engine": "google_scholar_author",
@@ -14,14 +16,15 @@ def fetch_scholar_author(author_name: str, num_papers: int = 20):
     search = GoogleSearch(params)
     data = search.get_dict()
 
+    # Exempel: extrahera profil + lista på publikationer
     profile = data.get("author_profile", {})
-    articles = data.get("articles", [])[:num_papers]
+    papers = data.get("articles", [])[:num_papers]
 
     return {
         "name": profile.get("name"),
         "affiliations": profile.get("affiliations"),
         "papers": [
             {"title": p.get("title"), "authors": p.get("authors", [])}
-            for p in articles
+            for p in papers
         ],
     }
